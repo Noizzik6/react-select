@@ -106,4 +106,4 @@ Baron.defaultProps = {
 	scrollingCls: '_scrolling',
 };
 
-module.exports = Baron;
+export default Baron;
