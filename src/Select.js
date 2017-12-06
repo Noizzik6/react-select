@@ -120,6 +120,13 @@ class Select extends React.Component {
 				menuNode.scrollTop = focusedOptionNode.offsetTop;
 			}
 
+			let container = document.getElementsByClassName('Select-menu-outer')[0];
+			if(container) {
+				const scroller = container.getElementsByClassName('scroller')[0];
+				const selected = document.getElementsByClassName('is-selected')[0];
+				scroller.scrollTop = selected.offsetTop;
+			}
+
 			// We still set hasScrolledToOption to true even if we didn't
 			// actually need to scroll, as we've still confirmed that the
 			// option is in view.
@@ -292,6 +299,7 @@ class Select extends React.Component {
 			this.setState({
 				isOpen: true,
 			});
+
 		}
 		// prevent default event handlers
 		event.stopPropagation();
