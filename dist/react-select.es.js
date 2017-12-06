@@ -814,7 +814,7 @@ var Select$1 = function (_React$Component) {
 				if (container) {
 					var scroller = container.getElementsByClassName('scroller')[0];
 					var selected = document.getElementsByClassName('is-selected')[0];
-					scroller.scrollTop = selected.offsetTop;
+					if (scroller && selected) scroller.scrollTop = selected.offsetTop;
 				}
 
 				// We still set hasScrolledToOption to true even if we didn't
