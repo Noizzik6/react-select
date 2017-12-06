@@ -1670,8 +1670,8 @@ var Select$1 = function (_React$Component) {
 		value: function renderArrow() {
 			if (!this.props.arrowRenderer) return;
 
-			var onMouseDown = this.handleMouseDownOnArrow;
 			var isOpen = this.state.isOpen;
+			var onMouseDown = isOpen ? this.handleMouseDownOnArrow : this.handleMouseDown;
 			var arrow = this.props.arrowRenderer({ onMouseDown: onMouseDown, isOpen: isOpen });
 
 			if (!arrow) {
