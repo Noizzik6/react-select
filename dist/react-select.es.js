@@ -810,6 +810,13 @@ var Select$1 = function (_React$Component) {
 					menuNode.scrollTop = focusedOptionNode.offsetTop;
 				}
 
+				var container = document.getElementsByClassName('Select-menu-outer')[0];
+				if (container) {
+					var scroller = container.getElementsByClassName('scroller')[0];
+					var selected = document.getElementsByClassName('is-selected')[0];
+					scroller.scrollTop = selected.offsetTop;
+				}
+
 				// We still set hasScrolledToOption to true even if we didn't
 				// actually need to scroll, as we've still confirmed that the
 				// option is in view.
