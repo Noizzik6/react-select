@@ -23,6 +23,11 @@
 	width: 100%;
 	z-index: @select-menu-zindex;
 	-webkit-overflow-scrolling: touch;
+
+    //custom scroll has no any classes, then
+  	> div > div:first-child {
+	  position: relative !important;
+	}
 }
 
 

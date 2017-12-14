@@ -283,6 +283,9 @@
   z-index: 1;
   -webkit-overflow-scrolling: touch;
 }
+.Select-menu-outer > div > div:first-child {
+  position: relative !important;
+}
 .Select-menu {
   max-height: 198px;
 }

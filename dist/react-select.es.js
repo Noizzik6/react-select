@@ -626,106 +626,13 @@ Value.propTypes = {
 	value: PropTypes.object.isRequired // the option object for this value
 };
 
-/** forked from https://github.com/Diokuz/react-baron **/
-
-'use strict';
-
-var React$1 = require('react');
-var createClass$1 = require('create-react-class');
-var baron = require('baron');
-
-function getDOMNode(ref) {
-	if (React$1.version < '0.14.0' && ref && ref.getDOMNode) {
-		return ref.getDOMNode();
-	}
-
-	return ref;
-}
-
-var Baron = createClass$1({
-	displayName: 'Baron',
-
-	componentDidMount: function componentDidMount() {
-		var clipper = getDOMNode(this.refs.clipper);
-		var scroller = getDOMNode(this.refs.scroller);
-		var track = getDOMNode(this.refs.track);
-		var bar = getDOMNode(this.refs.bar);
-
-		this.baron = baron({
-			root: clipper,
-			scroller: scroller,
-			barOnCls: this.props.barOnCls,
-			direction: this.props.direction,
-			track: track,
-			bar: bar,
-			impact: this.props.impact,
-			cssGuru: this.props.cssGuru,
-			scrollingCls: this.props.scrollingCls
-		});
-	},
-
-	componentDidUpdate: function componentDidUpdate() {
-		if (this.baron) {
-			this.baron.update();
-		}
-	},
-
-	scrollToLast: function scrollToLast() {
-		var scroll = this.props.direction === 'v' ? 'scrollTop' : 'scrollLeft';
-		var size = this.props.direction === 'v' ? 'scrollHeight' : 'scrollWidth';
-		var node = getDOMNode(this.refs.scroller);
-
-		node[scroll] = node[size];
-	},
-
-	getScroller: function getScroller() {
-		return getDOMNode(this.refs.scroller);
-	},
-
-	getClipper: function getClipper() {
-		return getDOMNode(this.refs.clipper);
-	},
-
-	componentWillUnmount: function componentWillUnmount() {
-		if (this.baron) {
-			this.baron.dispose();
-		}
-	},
-
-	render: function render() {
-		var barCls = this.props.barCls;
-		var trackCls = this.props.trackCls;
-
-		if (this.props.direction === 'h') {
-			barCls += ' ' + this.props.hModifier;
-			trackCls += ' ' + this.props.hModifier;
-		}
-
-		return React$1.createElement('div', { className: this.props.clipperCls, ref: 'clipper' }, React$1.createElement('div', {
-			className: this.props.scrollerCls,
-			ref: 'scroller',
-			onScroll: this.props.onScroll
-		}, this.props.children), React$1.createElement('div', { className: trackCls, ref: 'track' }, React$1.createElement('div', { className: barCls, ref: 'bar' })));
-	}
-});
-
-Baron.defaultProps = {
-	clipperCls: 'clipper',
-	scrollerCls: 'scroller',
-	trackCls: 'track',
-	barCls: 'bar',
-	barOnCls: 'baron',
-	direction: 'v',
-	hModifier: '_h',
-	impact: undefined,
-	scrollingCls: '_scrolling'
-};
-
 /*!
   Copyright (c) 2017 Jed Watson.
   Licensed under the MIT License (MIT), see
   http://jedwatson.github.io/react-select
 */
+var Scroll = require('react-custom-scrollbars');
+
 var stringifyValue = function stringifyValue(value) {
 	return typeof value === 'string' ? value : value !== null && JSON.stringify(value) || '';
 };
@@ -812,8 +719,8 @@ var Select$1 = function (_React$Component) {
 
 				var container = document.getElementsByClassName('Select-menu-outer')[0];
 				if (container) {
-					var scroller = container.getElementsByClassName('scroller')[0];
-					var selected = document.getElementsByClassName('is-selected')[0];
+					var scroller = container.childNodes[0].childNodes[0];
+					var selected = container.getElementsByClassName('is-selected')[0];
 					if (scroller && selected) scroller.scrollTop = selected.offsetTop;
 				}
 
@@ -1820,15 +1727,8 @@ var Select$1 = function (_React$Component) {
 						return _this9.menuContainer = _ref5;
 					}, className: 'Select-menu-outer', style: this.props.menuContainerStyle },
 				React.createElement(
-					Baron,
-					{
-						clipperCls: 'clipper',
-						scrollerCls: 'scroller',
-						trackCls: 'track',
-						barCls: 'bar',
-						scrollingCls: '_scrolling',
-						draggingCls: '_dragging'
-					},
+					Scroll.Scrollbars,
+					{ style: { width: '100%', height: '100%', position: 'relative' } },
 					React.createElement(
 						'div',
 						{ ref: function ref(_ref4) {

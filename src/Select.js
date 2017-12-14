@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 import AutosizeInput from 'react-input-autosize';
 import classNames from 'classnames';
+let  Scroll = require('react-custom-scrollbars');
 
 import defaultArrowRenderer from './utils/defaultArrowRenderer';
 import defaultFilterOptions from './utils/defaultFilterOptions';
@@ -17,7 +18,6 @@ import defaultClearRenderer from './utils/defaultClearRenderer';
 import Option from './Option';
 import Value from './Value';
 
-import Baron from './reactBaron';
 
 const stringifyValue = value =>
 	typeof value === 'string'
@@ -122,8 +122,8 @@ class Select extends React.Component {
 
 			let container = document.getElementsByClassName('Select-menu-outer')[0];
 			if(container) {
-				const scroller = container.getElementsByClassName('scroller')[0];
-				const selected = document.getElementsByClassName('is-selected')[0];
+				const scroller = container.childNodes[0].childNodes[0];
+				const selected = container.getElementsByClassName('is-selected')[0];
 				if(scroller && selected) scroller.scrollTop = selected.offsetTop;
 			}
 
@@ -1032,22 +1032,14 @@ class Select extends React.Component {
 
 		return (
 			<div ref={ref => this.menuContainer = ref} className="Select-menu-outer" style={this.props.menuContainerStyle}>
-				<Baron
-					clipperCls="clipper"
-					scrollerCls="scroller"
-					trackCls="track"
-					barCls="bar"
-					scrollingCls="_scrolling"
-					draggingCls="_dragging"
-					>
-						<div ref={ref => this.menu = ref} role="listbox" tabIndex={-1} className="Select-menu" id={this._instancePrefix + '-list'}
-							 style={this.props.menuStyle}
-							 onScroll={this.handleMenuScroll}
-							 onMouseDown={this.handleMouseDownOnMenu}>
-
-							{menu}
-						</div>
-				</Baron>
+				<Scroll.Scrollbars style={{ width: '100%', height: '100%', position: 'relative'}} >
+					<div ref={ref => this.menu = ref} role="listbox" tabIndex={-1} className="Select-menu" id={this._instancePrefix + '-list'}
+						 style={this.props.menuStyle}
+						 onScroll={this.handleMenuScroll}
+						 onMouseDown={this.handleMouseDownOnMenu}>
+						{menu}
+					</div>
+				</Scroll.Scrollbars>
 			</div>
 		);
 	}

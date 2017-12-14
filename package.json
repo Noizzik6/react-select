@@ -13,9 +13,9 @@
     "url": "https://github.com/JedWatson/react-select.git"
   },
   "dependencies": {
-    "baron": "^3.0.1",
     "classnames": "^2.2.4",
     "prop-types": "^15.5.8",
+    "react-custom-scrollbars": "^4.2.1",
     "react-input-autosize": "^2.1.0"
   },
   "devDependencies": {
